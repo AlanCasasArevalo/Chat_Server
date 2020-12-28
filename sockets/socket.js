@@ -11,10 +11,11 @@ io.on('connection', client => {
 
     client.on('mensaje', ( payload ) => {
         console.log('Mensaje', payload);
-
         io.emit( 'mensaje', { admin: 'Nuevo mensaje' } );
-
     });
 
-
+    client.on('new_message', (payload) => {
+        // io.emit('new_message', payload)
+        client.broadcast.emit('new_message', payload)
+    })
 });
