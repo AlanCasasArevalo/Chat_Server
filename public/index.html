@@ -26,6 +26,10 @@
         console.log('Escuhando:', payload );
     });
 
+    socket.on('new_message', function( payload ){
+        console.log('Mensaje desde los frontales:', payload );
+    });
+
 </script>
 </body>
 </html>
