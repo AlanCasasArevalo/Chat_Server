@@ -5,7 +5,8 @@ class Bands {
         this.bands = []
     }
 
-    addBand(band = new Band()) {
+    addBand(bandName = '') {
+        const band = new Band(bandName)
         this.bands.push(band)
     }
 

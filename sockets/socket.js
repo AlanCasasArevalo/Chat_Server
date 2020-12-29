@@ -4,10 +4,10 @@ const { io } = require('../index');
 
 const bands = new Bands()
 
-bands.addBand(new Band('Queen'))
-bands.addBand(new Band('Marea'))
-bands.addBand(new Band('Metallica'))
-bands.addBand(new Band('Albertucho'))
+bands.addBand('Queen')
+bands.addBand('Marea')
+bands.addBand('Metallica')
+bands.addBand('Albertucho')
 
 // Mensajes de Sockets
 io.on('connection', client => {
@@ -34,6 +34,13 @@ io.on('connection', client => {
         // client.broadcast.emit('new_message', payload)
         console.log(payload)
         bands.voteBand(payload.id)
+        io.emit('active_bands', bands.getAllBands())
+    })
+
+    client.on('add_new_band', (payload) => {
+        // client.broadcast.emit('new_message', payload)
+        console.log(payload)
+        bands.addBand(payload.name)
         io.emit('active_bands', bands.getAllBands())
     })
 });
