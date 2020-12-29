@@ -23,7 +23,12 @@
     socket.emit('mensaje', { nombre: 'Fernando' } );
 
     socket.on('mensaje', function( payload ){
-        console.log('Escuhando:', payload );
+        // console.log('Escuhando:', payload );
+    });
+
+    socket.on('active_bands', function( bands ){
+        console.clear()
+        console.table( bands );
     });
 
     socket.on('new_message', function( payload ){
