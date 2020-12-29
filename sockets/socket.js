@@ -29,4 +29,11 @@ io.on('connection', client => {
         client.broadcast.emit('new_message', payload)
         console.log(`${payload}`)
     })
+
+    client.on('vote_band', (payload) => {
+        // client.broadcast.emit('new_message', payload)
+        console.log(payload)
+        bands.voteBand(payload.id)
+        io.emit('active_bands', bands.getAllBands())
+    })
 });
