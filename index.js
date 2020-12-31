@@ -1,9 +1,19 @@
 const express = require('express');
 const path = require('path');
 require('dotenv').config();
+const bodyParser = require("body-parser");
+const notFoundRouter = require('./routes/notFoundRouter')
+const authRouter = require('./routes/authRouter')
 
 // App de Express
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use('/api/login', authRouter);
+
+app.use('', notFoundRouter);
 
 //DB Config
 const { dbConnection } = require('./database/config')
