@@ -13,5 +13,15 @@ router.post('/register',
         fieldsValidator
     ],
     authController.postRegister)
+
+router.post('/',
+    [
+        check('email', 'email is required').not().isEmpty(),
+        check('email', 'email is wrong formatted').isEmail(),
+        check('password', 'password is required').not().isEmpty(),
+        fieldsValidator
+    ],
+    authController.postLogin)
+
 module.exports = router
 
