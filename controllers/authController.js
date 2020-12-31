@@ -1,6 +1,7 @@
 const { response } = require('express')
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
+const {jwtGenerator} = require("../helpers/jwt");
 
 const post = async (req, res = response) => {
 
@@ -19,9 +20,13 @@ const post = async (req, res = response) => {
                 message: 'Error while insert on database'
             })
         }
+
+        const token = await jwtGenerator(user.uid)
+
         res.status(201).json({
             result: true,
-            user
+            user,
+            token
         })
     } catch (error) {
         if (error.code === 11000) {
