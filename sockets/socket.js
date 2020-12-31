@@ -1,13 +1,4 @@
-const Bands = require("../models/Bands");
-const Band = require("../models/band");
 const { io } = require('../index');
-
-const bands = new Bands()
-
-bands.addBand('Queen')
-bands.addBand('Marea')
-bands.addBand('Metallica')
-bands.addBand('Albertucho')
 
 // Mensajes de Sockets
 io.on('connection', client => {
