@@ -1,22 +1,17 @@
 const { response } = require('express')
+const bcrypt = require('bcryptjs')
 const User = require('../models/user')
 
 const post = async (req, res = response) => {
 
-    const { email } = req.body
+    const { email, password } = req.body
 
     try {
-        // Se puede hacer asi, o bien como esta en el catch.
-        // const emailExists = await User.findOne({email})
-        //
-        // if (!emailExists || typeof emailExists === 'undefined') {
-        //     res.status(400).json({
-        //         result: false,
-        //         message: 'Email is already in data base'
-        //     })
-        // }
-
         const user = new User(req.body)
+        // Encriptar contraseña
+        const salt = bcrypt.genSaltSync()
+        user.password = bcrypt.hashSync(password, salt)
+
         const result = await user.save()
         if (result.errors || typeof result.errors !== 'undefined') {
             res.status(500).json({
@@ -40,8 +35,6 @@ const post = async (req, res = response) => {
             message: `Error while insert on database ${error}`
         })
     }
-
-
 }
 
 module.exports = {
