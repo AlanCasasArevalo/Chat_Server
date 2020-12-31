@@ -62,7 +62,7 @@ const postLogin = async (req, res = response) => {
                     message: 'Credentials are wrong'
                 })
             } else {
-                const token = await jwtGenerator(user.uid)
+                const token = await jwtGenerator(user.id)
 
                 return res.status(200).json({
                     result: true,
@@ -86,7 +86,23 @@ const postLogin = async (req, res = response) => {
     }
 }
 
+const getRefreshToken = async (req, res = response) => {
+    console.log(``)
+    const uid = req.uid
+
+    const token = await jwtGenerator(uid)
+
+    const user = await User.findById(uid)
+
+    res.status(200).json({
+        result: true,
+        user,
+        token
+    })
+}
+
 module.exports = {
     postRegister,
-    postLogin
+    postLogin,
+    getRefreshToken
 }
