@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/user')
 const {jwtGenerator} = require("../helpers/jwt");
 
-const post = async (req, res = response) => {
+const postRegister = async (req, res = response) => {
 
     const { email, password } = req.body
 
@@ -43,5 +43,5 @@ const post = async (req, res = response) => {
 }
 
 module.exports = {
-    post
+    postRegister
 }
