@@ -11,40 +11,21 @@ bands.addBand('Albertucho')
 
 // Mensajes de Sockets
 io.on('connection', client => {
-    console.log('Cliente conectado');
-
-    client.emit('active_bands', bands.getAllBands())
+    // console.log('Cliente conectado');
 
     client.on('disconnect', () => {
-        console.log('Cliente desconectado');
+        // console.log('Cliente desconectado');
     });
 
-    client.on('mensaje', ( payload ) => {
-        console.log('Mensaje', payload);
-        io.emit( 'mensaje', { admin: 'Nuevo mensaje' } );
-    });
+    // client.on('mensaje', ( payload ) => {
+    //     // console.log('Mensaje', payload);
+    //     io.emit( 'mensaje', { admin: 'Nuevo mensaje' } );
+    // });
 
-    client.on('new_message', (payload) => {
-        // io.emit('new_message', payload)
-        client.broadcast.emit('new_message', payload)
-        console.log(`${payload}`)
-    })
+    // client.on('new_message', (payload) => {
+    //     // io.emit('new_message', payload)
+    //     client.broadcast.emit('new_message', payload)
+    //     console.log(`${payload}`)
+    // })
 
-    client.on('vote_band', (payload) => {
-        // client.broadcast.emit('new_message', payload)
-        bands.voteBand(payload.id)
-        io.emit('active_bands', bands.getAllBands())
-    })
-
-    client.on('add_new_band', (payload) => {
-        // client.broadcast.emit('new_message', payload)
-        bands.addBand(payload.name)
-        io.emit('active_bands', bands.getAllBands())
-    })
-
-    client.on('delete_band', (payload) => {
-        // client.broadcast.emit('new_message', payload)
-        bands.deleteBandById(payload.id)
-        io.emit('active_bands', bands.getAllBands())
-    })
 });

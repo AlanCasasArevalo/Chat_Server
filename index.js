@@ -5,6 +5,10 @@ require('dotenv').config();
 // App de Express
 const app = express();
 
+//DB Config
+const { dbConnection } = require('./database/config')
+dbConnection()
+
 // Node Server
 const server = require('http').createServer(app);
 module.exports.io = require('socket.io')(server);
