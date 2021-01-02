@@ -87,11 +87,8 @@ const postLogin = async (req, res = response) => {
 }
 
 const getRefreshToken = async (req, res = response) => {
-    console.log(``)
     const uid = req.uid
-
     const token = await jwtGenerator(uid)
-
     const user = await User.findById(uid)
 
     res.status(200).json({
