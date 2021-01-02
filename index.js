@@ -4,6 +4,7 @@ require('dotenv').config();
 const bodyParser = require("body-parser");
 const notFoundRouter = require('./routes/notFoundRouter')
 const authRouter = require('./routes/authRouter')
+const usersRouter = require('./routes/usersRouter')
 
 // App de Express
 const app = express();
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api/login', authRouter);
+app.use('/api/', usersRouter);
 
 app.use('', notFoundRouter);
 
