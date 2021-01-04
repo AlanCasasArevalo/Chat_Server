@@ -20,6 +20,7 @@ io.on('connection', client => {
     //Escuchar el mensaje personal del cliente
     client.on('personal_message', ( payload ) => {
         console.log('Mensaje desde Flutter => ', payload);
+        io.to(payload.to).emit('personal_message', payload)
     });
 
     client.on('disconnect', () => {
