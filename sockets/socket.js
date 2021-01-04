@@ -14,6 +14,14 @@ io.on('connection', client => {
 
     userConnectionStatus(uid, true)
 
+    //Ingresar al cliente a una sala
+    client.join(uid)
+
+    //Escuchar el mensaje personal del cliente
+    client.on('personal_message', ( payload ) => {
+        console.log('Mensaje desde Flutter => ', payload);
+    });
+
     client.on('disconnect', () => {
         console.log('Cliente desconectado');
         userConnectionStatus(uid, false)
