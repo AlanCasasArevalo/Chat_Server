@@ -1,4 +1,4 @@
-const {userConnectionStatus} = require("../controllers/socketController");
+const {userConnectionStatus, saveMessageInDDBB} = require("../controllers/socketController");
 const {checkJWT} = require("../helpers/jwt");
 const { io } = require('../index');
 
@@ -18,8 +18,9 @@ io.on('connection', client => {
     client.join(uid)
 
     //Escuchar el mensaje personal del cliente
-    client.on('personal_message', ( payload ) => {
-        console.log('Mensaje desde Flutter => ', payload);
+    client.on('personal_message', async ( payload ) => {
+        // console.log('Mensaje desde Flutter => ', payload);
+        await saveMessageInDDBB(payload)
         io.to(payload.to).emit('personal_message', payload)
     });
 
@@ -27,16 +28,4 @@ io.on('connection', client => {
         console.log('Cliente desconectado');
         userConnectionStatus(uid, false)
     });
-
-    // client.on('mensaje', ( payload ) => {
-    //     // console.log('Mensaje', payload);
-    //     io.emit( 'mensaje', { admin: 'Nuevo mensaje' } );
-    // });
-
-    // client.on('new_message', (payload) => {
-    //     // io.emit('new_message', payload)
-    //     client.broadcast.emit('new_message', payload)
-    //     console.log(`${payload}`)
-    // })
-
 });
