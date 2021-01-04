@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const notFoundRouter = require('./routes/notFoundRouter')
 const authRouter = require('./routes/authRouter')
 const usersRouter = require('./routes/usersRouter')
+const messageRouter = require('./routes/messageRouter')
 
 // App de Express
 const app = express();
@@ -14,6 +15,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/api/login', authRouter);
 app.use('/api/', usersRouter);
+app.use('/api', messageRouter);
 
 app.use('', notFoundRouter);
 
